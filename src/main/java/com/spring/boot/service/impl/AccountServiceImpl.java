@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.spring.boot.mapper.AccountMapper.ACCOUNT_MAPPER;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -39,10 +41,7 @@ public class AccountServiceImpl implements AccountService {
             throw new SystemException("There is already an account with that userName");
         }
 
-        Account account = new Account();
-        account.setUserName(accountDto.getUserName());
-        account.setPassword(accountDto.getPassword());
-        account.setPhoneNumber(accountDto.getPhoneNumber());
+        Account account = ACCOUNT_MAPPER.toAccount(accountDto);
         accountRepo.save(account);
 
         return accountDto;
@@ -56,11 +55,7 @@ public class AccountServiceImpl implements AccountService {
 
         checkAccountExist(accountDto.getId());
 
-        Account account = new Account();
-        account.setId(accountDto.getId());
-        account.setUserName(accountDto.getUserName());
-        account.setPassword(accountDto.getPassword());
-        account.setPhoneNumber(accountDto.getPhoneNumber());
+        Account account = ACCOUNT_MAPPER.toAccount(accountDto);
         accountRepo.save(account);
 
         return accountDto;
@@ -88,12 +83,9 @@ public class AccountServiceImpl implements AccountService {
         return getAccountDtos(accounts, accountDtos);
     }
 
-    private static List<AccountDto> getAccountDtos(List<Account> accounts, List<AccountDto> accountDtos) {
+    private List<AccountDto> getAccountDtos(List<Account> accounts, List<AccountDto> accountDtos) {
         for (Account ac : accounts){
-            AccountDto accountDto = new AccountDto();
-            accountDto.setId(ac.getId());
-            accountDto.setUserName(ac.getUserName());
-            accountDto.setPhoneNumber(ac.getPhoneNumber());
+            AccountDto accountDto = ACCOUNT_MAPPER.toAccountDto(ac);
             accountDtos.add(accountDto);
         }
 
