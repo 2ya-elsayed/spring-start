@@ -19,6 +19,5 @@ It covers essential Spring Boot features such as:
 ### Run the Project
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/spring-start.git
+   git clone https://github.com/2ya-elsayed/spring-start.git
    cd spring-start
-
