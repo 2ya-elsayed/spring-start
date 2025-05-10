@@ -4,6 +4,7 @@ import com.spring.boot.dto.AccountDto;
 import com.spring.boot.model.Account;
 import com.spring.boot.service.AccountService;
 import jakarta.transaction.SystemException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,12 @@ public class AccoountController {
     }
 
     @PostMapping("/addAccount")
-    public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto) throws SystemException {
+    public ResponseEntity<AccountDto> addAccount(@RequestBody @Valid AccountDto accountDto) throws SystemException {
         return ResponseEntity.created(URI.create("/addAccount")).body(accountService.createAccount(accountDto));
     }
 
     @PutMapping("/updateAccount")
-    public ResponseEntity<AccountDto> updateAccount(@RequestBody AccountDto accountDto) throws SystemException {
+    public ResponseEntity<AccountDto> updateAccount(@RequestBody @Valid AccountDto accountDto) throws SystemException {
         return ResponseEntity.ok().body(accountService.updateAccount(accountDto));
     }
 
